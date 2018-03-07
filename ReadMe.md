@@ -56,6 +56,7 @@ plt.figure(figsize=(7,5))
 
 
 ```python
+# Set up the data for the various plots
 urban = merge_table[(merge_table["type"]== "Urban")]
 suburban = merge_table[(merge_table["type"]== "Suburban")]
 rural = merge_table[(merge_table["type"]== "Rural")]
@@ -63,7 +64,7 @@ rural = merge_table[(merge_table["type"]== "Rural")]
 
 
 ```python
-#Calculate Average Fare group by City
+# Calculate Average Fare group by City
 avg_urban = urban.groupby(["city"]).mean()["fare"].round(1)
 avg_suburban = suburban.groupby(["city"]).mean()["fare"].round(1)
 avg_rural = rural.groupby(["city"]).mean()["fare"].round(1)
@@ -71,6 +72,7 @@ avg_rural = rural.groupby(["city"]).mean()["fare"].round(1)
 
 
 ```python
+# Grouping rides together by demographic and counting how many
 totrideurban = urban.groupby(["city"]).count()["ride_id"]
 totridesub = suburban.groupby(["city"]).count()["ride_id"]
 totriderural = rural.groupby(["city"]).count()["ride_id"]
@@ -94,7 +96,7 @@ rural_scat = plt.scatter(totriderural, avg_rural, marker="o", facecolors="gold",
 
 
 ```python
-#Scatter Plot Formatting and Labels
+# Scatter Plot Formatting and Labels
 plt.xlim(0, 70)
 plt.ylim(15, 50)
 plt.grid(color='white', axis='both')
@@ -111,13 +113,13 @@ plt.show()
 
 
 ```python
-#Grab Total Fares Grouped by City Type
+# Grab Total Fares Grouped by City Type
 totalfares = merge_table['fare'].sum()
 totalurban = urban['fare'].sum()
 totalsub = suburban['fare'].sum()
 totalrural = rural['fare'].sum()
 
-#Calculate percentages by City Type
+# Calculate percentages by City Type
 percsub = (totalsub / totalfares *100).round(1)
 percurban = (totalurban / totalfares *100).round(1)
 percrural = (totalrural / totalfares *100).round(1)
